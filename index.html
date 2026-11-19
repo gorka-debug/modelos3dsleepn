@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Modelos 3D SLEEP'N</title>
+<meta name="description" content="Modelos 3D interactivos de edificios y hoteles SLEEP'N: plantas, superficies y mobiliario editable.">
+<meta property="og:title" content="Modelos 3D SLEEP'N">
+<meta property="og:description" content="Edificios levantados planta a planta, con mobiliario SLEEP'N que se puede mover.">
+<meta property="og:image" content="https://gorka-debug.github.io/modelos3dsleepn/delicias16/miniatura.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#333E48;--muted:#66727C;--bg:#F4F1EC;--card:#FFFFFF;--line:#E2DDD5;--sky:#57C0E8;--accent:#2C86B3;--lime:#E1E61E;--orange:#FF8F12;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--ink:#E6EAED;--muted:#9AA6AF;--bg:#15191D;--card:#1E252B;--line:#2E363D;--accent:#6CC6EC;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1040px;margin:0 auto;padding:40px 20px 56px}
+header{display:flex;flex-direction:column;gap:6px;margin-bottom:28px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.kicker i{width:10px;height:10px;border-radius:50%;background:var(--sky);display:inline-block}
+h1{margin:0;font-size:clamp(28px,5vw,42px);line-height:1.08;letter-spacing:-.02em;text-wrap:balance}
+.lead{margin:4px 0 0;color:var(--muted);max-width:60ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:transform .15s,box-shadow .15s}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.card:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+.thumb{aspect-ratio:6/5;background:#E9E6E0 center/cover no-repeat}
+.body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px}
+.body h2{margin:0;font-size:19px;line-height:1.2}
+.body p{margin:0;color:var(--muted);font-size:13.5px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.tag{font-size:12px;font-weight:500;border:1px solid var(--line);border-radius:999px;padding:2px 9px;color:var(--ink)}
+.go{margin-top:8px;font-weight:700;color:var(--accent);font-size:14px}
+.how{margin-top:34px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:13.5px;max-width:70ch}
+.how b{color:var(--ink)}
+@media (prefers-reduced-motion:reduce){.card{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="kicker"><i></i>SLEEP'N · Expansión</span>
+    <h1>Modelos 3D</h1>
+    <p class="lead">Edificios levantados planta a planta a partir de sus planos, con mobiliario SLEEP'N que se puede mover, girar, cambiar de tamaño o borrar.</p>
+  </header>
+  <main class="grid" id="grid"></main>
+  <section class="how">
+    <p><b>Cómo se usa.</b> Abre un modelo, elige la planta arriba y toca un mueble para seleccionarlo. Ya seleccionado, arrástralo para moverlo. Lo que cambies se guarda en tu navegador.</p>
+    <p><b>Para pasar una distribución a otra persona</b>, ve a Escenarios y pulsa «Descargar .json». Manda el archivo por Telegram o por correo, y quien lo reciba lo abre con «Importar JSON».</p>
+  </section>
+</div>
+<script>
+/* Para añadir un modelo: crea su carpeta con su index.html y una miniatura.jpg, y añade aquí una entrada. */
+const MODELOS = [
+  { carpeta: 'delicias16', nombre: 'Hotel Delicias 16', lugar: 'Calle Delicias 16 · Madrid', texto: '42 habitaciones en 7 plantas con medios niveles. Dos propuestas de amueblado: estilo SLEEP\'N Valencia y estilo SLEEP\'N Atocha.', tags: ['42 hab.', '7 plantas', '4 con terraza', 'Planos del dossier'] },
+];
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+document.getElementById('grid').innerHTML = MODELOS.map(m => `
+  <a class="card" href="${esc(m.carpeta)}/">
+    <div class="thumb" style="background-image:url('${esc(m.carpeta)}/miniatura.jpg')" role="img" aria-label="Vista 3D de ${esc(m.nombre)}"></div>
+    <div class="body">
+      <h2>${esc(m.nombre)}</h2>
+      <p>${esc(m.lugar)}</p>
+      <p>${esc(m.texto)}</p>
+      <div class="tags">${m.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>
+      <span class="go">Abrir el modelo →</span>
+    </div>
+  </a>`).join('');
+</script>
+</body>
+</html>
