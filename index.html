@@ -54,7 +54,7 @@ h1{margin:0;font-size:clamp(28px,5vw,42px);line-height:1.08;letter-spacing:-.02e
 <script>
 /* Para añadir un modelo: crea su carpeta con su index.html y una miniatura.jpg, y añade aquí una entrada. */
 const MODELOS = [
-  { carpeta: 'delicias16', nombre: 'Hotel Delicias 16', lugar: 'Calle Delicias 16 · Madrid', texto: '42 habitaciones en 7 plantas con medios niveles. Dos propuestas de amueblado: estilo SLEEP\'N Valencia y estilo SLEEP\'N Atocha.', tags: ['42 hab.', '7 plantas', '4 con terraza', 'Planos del dossier'] },
+  { carpeta: 'delicias16', nombre: 'Hotel Delicias 16', lugar: 'Calle Delicias 16 · Madrid', texto: '42 habitaciones en 7 plantas con medios niveles. Dos propuestas de amueblado (estilo SLEEP\'N Valencia y SLEEP\'N Atocha), recorrido virtual en primera persona y huéspedes y camareros que se mueven por el hotel.', tags: ['42 hab.', '7 plantas', 'Recorrido virtual', 'Personas', 'Desayunos'] },
 ];
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 document.getElementById('grid').innerHTML = MODELOS.map(m => `
